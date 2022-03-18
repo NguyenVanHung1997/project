@@ -17,22 +17,22 @@ private:
         int x;
         int y;
     };
-    char gamePAD[COLUM][ROW]{""};
+    char gameTABLE[COLUM][ROW];
     vector<Block*> Data;
-    vector<Block*>Replay;
+
 
 public:
     CaroMath();
     void print();
     void draw();
     void display();
-    void addPlayerAToVector();
-    void addPlayerBToVector();
+    void Player1Move();
+    void Player2Move();
     void playerInput();
-    bool checkWinNgang();
-    bool checkWinDoc();
-    bool checkWincheo1();
-    bool checkWincheo2();
+    bool checkLine();
+    bool checkCross();
+    bool CheckDiagonal1();
+    bool CheckDiagonal2();
     bool checkWin(string play="");
     bool checkExist(int x, int y);
 };

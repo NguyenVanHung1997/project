@@ -6,7 +6,7 @@ using namespace std;
 CaroMath::CaroMath()
 {
     player1 = "Play 1 ";
-    player2 = "Play 1 ";
+    player2 = "Play 2 ";
 }
 
 void CaroMath::print(){
@@ -17,7 +17,7 @@ void CaroMath::draw(){
     for(int i=0 ;i<COLUM;i++){
         for(int j=0;j<ROW;j++)
         {
-            gamePAD[i][j]=' ';
+            gameTABLE[i][j]=' ';
         }
     }
 }
@@ -47,7 +47,7 @@ void CaroMath::display()
                 cout << iY + 1;
             }
             for (int iX = 0; iX < COLUM + 1; iX++){
-                cout << "| " << gamePAD[iX][iY] << " ";
+                cout << "| " << gameTABLE[iX][iY] << " ";
             }
             cout << endl;
             cout << "   ";
@@ -57,7 +57,7 @@ void CaroMath::display()
             cout << endl;
         }
 }
-void CaroMath::addPlayerAToVector()
+void CaroMath::Player1Move()
 {
     int x,y;
     do
@@ -77,13 +77,13 @@ void CaroMath::addPlayerAToVector()
         for(int j=0;j<ROW;j++){
 
             if(b->x==i&&b->y==j){
-                gamePAD[i][j]='X';
+                gameTABLE[i][j]='X';
             }
         }
     }
 
 }
-void CaroMath::addPlayerBToVector()
+void CaroMath::Player2Move()
 {
     int x,y;
     do
@@ -109,7 +109,7 @@ void CaroMath::addPlayerBToVector()
     {
         for(int j=0;j<ROW;j++){
             if(b->x==i&&b->y==j){
-                gamePAD[i][j]='O';
+                gameTABLE[i][j]='O';
             }
         }
     }
@@ -118,127 +118,127 @@ void CaroMath::addPlayerBToVector()
 void CaroMath::playerInput()
 {
     if(Data.size()==0){
-        addPlayerAToVector();
+        Player1Move();
     }
     else if((Data.size()-1)%2==0){
-        addPlayerBToVector();
+        Player2Move();
     }
     else if((Data.size()-1)%2!=0) {
-        addPlayerAToVector();
+        Player1Move();
     }
     system("cls");
 }
-bool CaroMath::checkWinNgang(){
-    int don=Data[Data.size()-1]->x;
-    int co =Data[Data.size()-1]->y;
-    char kt= gamePAD[don][co];
-    int dem=1;
-    int j=co;
+bool CaroMath::checkLine(){
+    int row=Data[Data.size()-1]->x;
+    int colum =Data[Data.size()-1]->y;
+    char kt= gameTABLE[row][colum];
+    int count=1;
+    int j=colum;
     while(j>0){
         j--;
-        if(gamePAD[don][j]==kt)
+        if(gameTABLE[row][j]==kt)
         {
-            dem++;
-            cout << dem << "1\n";
-            if(dem==GameWoncondition) return true;
+            count++;
+            cout << count << "1\n";
+            if(count==GameWoncondition) return true;
         }
         else break;
     }
-    j=co;
+    j=colum;
     while(j<(COLUM-1)){
         j++;
-        cout << "dong: " << don << " - j: " << j << '\n';
-        cout << "gamePad " << gamePAD[don][j] << '\n';
-        if(gamePAD[don][j]==kt)
+        cout << "dong: " << row << " - j: " << j << '\n';
+        cout << "gameTABLE " << gameTABLE[row][j] << '\n';
+        if(gameTABLE[row][j]==kt)
         {
-            dem++;
-            cout << dem << "2\n";
-            if(dem==GameWoncondition)   return true;
+            count++;
+            cout << count << "2\n";
+            if(count==GameWoncondition)   return true;
         }
         else break;
     }
     return false;
 }
-bool CaroMath::checkWinDoc(){
-    int don=Data[Data.size()-1]->x;
-    int co =Data[Data.size()-1]->y;
-    char kt= gamePAD[don][co];
-    int dem=1;
-    int i=co;
+bool CaroMath::checkCross(){
+    int row=Data[Data.size()-1]->x;
+    int colum =Data[Data.size()-1]->y;
+    char kt= gameTABLE[row][colum];
+    int count=1;
+    int i=colum;
     while(i>0){
         i--;
-        if(gamePAD[i][co]==kt)
+        if(gameTABLE[i][colum]==kt)
         {
-            dem++;
-            if(dem==GameWoncondition) return true;
+            count++;
+            if(count==GameWoncondition) return true;
         }
         else break;
     }
-    i=co;
+    i=colum;
     while(i<(ROW-1)){
         i++;
-        if(gamePAD[i][co]==kt)
+        if(gameTABLE[i][colum]==kt)
         {
-            dem++;
-            if(dem==GameWoncondition)   return true;
+            count++;
+            if(count==GameWoncondition)   return true;
         }
         else break;
     }
     return false;
 }
-bool CaroMath::checkWincheo1(){
-    int don =Data[Data.size()-1]->x;
-    int co =Data[Data.size()-1]->y;
-    char kt=gamePAD[don][co];
-    int dem=1;
-    int i=don;
-    int j=co;
+bool CaroMath::CheckDiagonal1(){
+    int row =Data[Data.size()-1]->x;
+    int colum =Data[Data.size()-1]->y;
+    char kt=gameTABLE[row][colum];
+    int count=1;
+    int i=row;
+    int j=colum;
     while(j>0 && i>0){
         i--;
         j--;
-        if(gamePAD[i][j]==kt){
-            dem++;
-            if(dem==GameWoncondition) return true;
+        if(gameTABLE[i][j]==kt){
+            count++;
+            if(count==GameWoncondition) return true;
         } else break;
 
     }
-    i=don;
-    j=co;
+    i=row;
+    j=colum;
     while((i<(COLUM-1))&&(j<(ROW-1))){
         i++;
         j++;
-        if(gamePAD[i][j]==kt){
-            dem++;
-            if(dem==GameWoncondition) return true
+        if(gameTABLE[i][j]==kt){
+            colum++;
+            if(count==GameWoncondition) return true
                     ;            }
         else break;
     }
     return false;
 }
-bool CaroMath::checkWincheo2(){
-    int don =Data[Data.size()-1]->x;
-    int co =Data[Data.size()-1]->y;
-    char kt=gamePAD[don][co];
-    int dem=1;
-    int i=don;
-    int j=co;
+bool CaroMath::CheckDiagonal2(){
+    int row =Data[Data.size()-1]->x;
+    int colum =Data[Data.size()-1]->y;
+    char kt=gameTABLE[row][colum];
+    int count=1;
+    int i=row;
+    int j=colum;
     while((i>0) && (j<(ROW-1))){
         i--;
         j++;
-        if(gamePAD[i][j]==kt){
-            dem++;
-            if(dem==GameWoncondition) return true;
+        if(gameTABLE[i][j]==kt){
+            count++;
+            if(count==GameWoncondition) return true;
         } else break;
 
     }
-    i=don;
-    j=co;
+    i=row;
+    j=colum;
     while((i<(ROW-1))&&(j>0)){
         i++;
         j--;
-        if(gamePAD[i][j]==kt){
-            dem++;
-            if(dem==GameWoncondition) return true
+        if(gameTABLE[i][j]==kt){
+            count++;
+            if(count==GameWoncondition) return true
                     ;            }
         else break;
     }
@@ -246,27 +246,27 @@ bool CaroMath::checkWincheo2(){
 }
 bool CaroMath::checkWin(string play){
 //    if(play == "X")
-    if (checkWinDoc())
+    if (checkCross())
     {
-        cout << "asdf 1\n";
+
         cout << "Play " << play << " win!\n";
         return true;
     }
-    else if (checkWinNgang())
+    else if (checkLine())
     {
-        cout << "asdf 2\n";
+
         cout << "Play " << play << " win!\n";
         return true;
     }
-    else if (checkWincheo1())
+    else if (CheckDiagonal1())
     {
-        cout << "asdf 3\n";
+
         cout << "Play " << play << " win!\n";
         return true;
     }
-    else if (checkWincheo2())
+    else if (CheckDiagonal2())
     {
-        cout << "asdf 4\n";
+
         cout << "Play " << play << " win!\n";
         return true;
     }
