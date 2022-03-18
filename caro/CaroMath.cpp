@@ -46,7 +46,7 @@ void CaroMath::display()
             {
                 cout << iY + 1;
             }
-            for (int iX = 0; iX < COLUM + 1; iX++){
+            for (int iX = 0; iX < COLUM ; iX++){
                 cout << "| " << gameTABLE[iX][iY] << " ";
             }
             cout << endl;
@@ -93,14 +93,6 @@ void CaroMath::Player2Move()
         --x;
         --y;
     }while(((0>x)||(COLUM-1<x))||((0>y)||(ROW-1<y))||checkExist(x,y));
-    for(int i=0;i < Data.size();i++)
-    {
-        if(Data[i]->x==x && Data[i]->y==y)
-        {
-            cout<<" 0 khong hop le!"<<endl;
-            return;
-        }
-    }
     Block *b=new Block();
     b->x=x;
     b->y=y;
@@ -147,8 +139,6 @@ bool CaroMath::checkLine(){
     j=colum;
     while(j<(COLUM-1)){
         j++;
-        cout << "dong: " << row << " - j: " << j << '\n';
-        cout << "gameTABLE " << gameTABLE[row][j] << '\n';
         if(gameTABLE[row][j]==kt)
         {
             count++;
@@ -244,8 +234,10 @@ bool CaroMath::CheckDiagonal2(){
     }
     return false;
 }
-bool CaroMath::checkWin(string play){
+bool CaroMath::checkWin(int play){
 //    if(play == "X")
+    if((Data.size()-1)%2==0) play =1;
+    if((Data.size()-1)%2==1) play=2;
     if (checkCross())
     {
 

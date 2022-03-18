@@ -15,7 +15,7 @@ int main()
 //        CM.checkWin("X");
 //        CM.addPlayerBToVector();
         CM.playerInput();
-        CM.checkWin("O");
+        CM.checkWin(1);
         CM.display();
-    }while(CM.checkWin()==false);
+    }while(CM.checkWin(1)==false);
 }

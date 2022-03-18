@@ -33,7 +33,7 @@ public:
     bool checkCross();
     bool CheckDiagonal1();
     bool CheckDiagonal2();
-    bool checkWin(string play="");
+    bool checkWin(int play);
     bool checkExist(int x, int y);
 };
 
