@@ -9,6 +9,7 @@ CaroMath::CaroMath()
     player2 = "Play 2 ";
 }
 
+
 void CaroMath::print(){
     cout<<"Player 1 <X>"<<"-"<<"Player 2 <0>"<<endl;
 
@@ -25,52 +26,61 @@ void CaroMath::display()
 {
 
     cout << "    ";
-        for (int iX = 0; iX < COLUM; iX++)
+    for (int iX = 0; iX < COLUM; iX++)
+    {
+        if (iX + 1 < 10)
         {
-            if(iX + 1 < 10)
-            {
-                cout << iX + 1 << "   ";
-            }
-            else
-            {
-                cout << iX + 1 << "  ";
+            cout << iX + 1 << "   ";
+        }
+        else
+        {
+            cout << iX + 1 << "  ";
+        }
+    }
+    cout << endl;
+    cout << "  ";
+    for (int iX = 0; iX < 4 * COLUM + 1; iX++) {
+        /*cout << "----";*/
+        printf("%c", 196);
+    }
+    cout << endl;
+    for (int iX = 0; iX < ROW; iX++) {
+        if (iX + 1 < 10)
+        {
+            cout << iX + 1 << " ";
+        }
+        else
+        {
+            cout << iX + 1;
+        }
+        for (int iY = 0; iY < (COLUM+1); iY++) {
+            cout << "| ";/* << gameTABLE[iX][iY] << " "*/
+            if (iY != (COLUM)) {
+                cout << gameTABLE[iX][iY] << " ";
             }
         }
         cout << endl;
-        for (int iY = 0; iY < ROW; iY++){
-            if (iY + 1 < 10)
-            {
-                cout << iY + 1 << " ";
-            }
-            else
-            {
-                cout << iY + 1;
-            }
-            for (int iX = 0; iX < COLUM ; iX++){
-                cout << "| " << gameTABLE[iX][iY] << " ";
-            }
-            cout << endl;
-            cout << "   ";
-            for (int iX = 0; iX < COLUM; iX++){
-                cout << "----";
-            }
-            cout << endl;
+        cout << "  ";
+        for (int iY = 0; iY < 4*COLUM+1; iY++) {
+            /*cout << "----";*/
+            printf("%c", 196);
         }
+        cout << endl;
+    }
 }
 void CaroMath::Player1Move()
 {
-    int x,y;
+    int iX,iY;
     do
     {
         cout<<player1<<"input1:";
-        cin>>x>>y;
-        --x;
-        --y;
-    } while(((0>x)||(COLUM-1<x))||((0>y)||(ROW-1<y))||checkExist(x,y));
-
-    Block *b=new Block();
-    b->x=x;
-    b->y=y;
+        cin>>iX>>iY;
+        --iX;
+        --iY;
+    } while(((0>iX)||(COLUM-1<iX))||((0>iY)||(ROW-1<iY))||checkExist(iX,iY));
+    b=new Block();
+    b->x=iX;
+    b->y=iY;
     Data.push_back(b);
     for(int i=0; i<COLUM;i++)
     {
@@ -81,21 +91,20 @@ void CaroMath::Player1Move()
             }
         }
     }
-
 }
 void CaroMath::Player2Move()
 {
-    int x,y;
+    int iX,iY;
     do
     {
         cout<<player2<<"input2:";
-        cin>>x>>y;
-        --x;
-        --y;
-    }while(((0>x)||(COLUM-1<x))||((0>y)||(ROW-1<y))||checkExist(x,y));
-    Block *b=new Block();
-    b->x=x;
-    b->y=y;
+        cin>>iX>>iY;
+        --iX;
+        --iY;
+    }while(((0>iX)||(COLUM-1<iX))||((0>iY)||(ROW-1<iY))||checkExist(iX,iY));
+    b=new Block();
+    b->x=iX;
+    b->y=iY;
     Data.push_back(b);
     for(int i=0; i<COLUM;i++)
     {
@@ -154,7 +163,7 @@ bool CaroMath::checkCross(){
     int colum =Data[Data.size()-1]->y;
     char kt= gameTABLE[row][colum];
     int count=1;
-    int i=colum;
+    int i=row;
     while(i>0){
         i--;
         if(gameTABLE[i][colum]==kt)
@@ -164,7 +173,7 @@ bool CaroMath::checkCross(){
         }
         else break;
     }
-    i=colum;
+    i=row;
     while(i<(ROW-1)){
         i++;
         if(gameTABLE[i][colum]==kt)
@@ -234,31 +243,27 @@ bool CaroMath::CheckDiagonal2(){
     }
     return false;
 }
-bool CaroMath::checkWin(int play){
-//    if(play == "X")
-    if((Data.size()-1)%2==0) play =1;
-    if((Data.size()-1)%2==1) play=2;
+bool CaroMath::checkWin(){
+    int play;
+    if (Data.size() % 2 == 1) play = 1;
+    if (Data.size() % 2 == 0) play = 2;
     if (checkCross())
     {
-
         cout << "Play " << play << " win!\n";
         return true;
     }
     else if (checkLine())
     {
-
         cout << "Play " << play << " win!\n";
         return true;
     }
     else if (CheckDiagonal1())
     {
-
         cout << "Play " << play << " win!\n";
         return true;
     }
     else if (CheckDiagonal2())
     {
-
         cout << "Play " << play << " win!\n";
         return true;
     }
@@ -277,5 +282,8 @@ bool CaroMath::checkExist(int x, int y)
     }
     return false;
 }
-
+CaroMath::~CaroMath(){
+    delete b;
+    b=nullptr;
+}
 

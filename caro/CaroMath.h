@@ -6,23 +6,25 @@ using namespace std;
 #define  COLUM 10
 #define  ROW 10
 #define GameWoncondition 4
-
+struct Block
+{
+    int x;
+    int y;
+};
 class CaroMath
 {
 private:
     string player1;
     string player2;
-    struct Block
-    {
-        int x;
-        int y;
-    };
+    Block x;
+    Block y;
     char gameTABLE[COLUM][ROW];
-    vector<Block*> Data;
-
+    vector<Block*> Data;//vector dia chi block
+    Block *b;
 
 public:
     CaroMath();
+    ~CaroMath();
     void print();
     void draw();
     void display();
@@ -33,7 +35,7 @@ public:
     bool checkCross();
     bool CheckDiagonal1();
     bool CheckDiagonal2();
-    bool checkWin(int play);
+    bool checkWin();
     bool checkExist(int x, int y);
 };
 

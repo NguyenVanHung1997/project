@@ -10,12 +10,8 @@ int main()
     CM.draw();
     CM.display();
     do{
-//        CM.display();
-//        CM.addPlayerAToVector();
-//        CM.checkWin("X");
-//        CM.addPlayerBToVector();
         CM.playerInput();
-        CM.checkWin(1);
+        CM.checkWin();
         CM.display();
-    }while(CM.checkWin(1)==false);
+    }while(CM.checkWin()==false);
 }
