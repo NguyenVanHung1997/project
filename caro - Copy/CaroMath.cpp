@@ -1,7 +1,6 @@
-#include <fstream>
+
 #include <iostream>
 #include "CaroMath.h"
-#include <sstream>
 using namespace std;
 
 CaroMath::CaroMath()
@@ -9,6 +8,8 @@ CaroMath::CaroMath()
     player1 = "Play 1 ";
     player2 = "Play 2 ";
 }
+
+
 void CaroMath::print(){
     cout<<"Player 1 <X>"<<"-"<<"Player 2 <0>"<<endl;
 
@@ -127,7 +128,6 @@ void CaroMath::playerInput()
         Player1Move();
     }
     system("cls");
-
 }
 bool CaroMath::checkLine(){
     int row=Data[Data.size()-1].x;
@@ -243,43 +243,33 @@ bool CaroMath::CheckDiagonal2(){
     }
     return false;
 }
-bool CaroMath::checkDraw()
-{
-    if (Data.size()==ROW*COLUM) {
-        return true;
-    } else {
-        return false;
-    }
-}
-int CaroMath::checkWin(){
-    int play=1;
-    int draw=3;
-    if (Data.size() % 2 == 1) player1 = 1;
-    if (Data.size() % 2 == 0) player2 = 2;
+bool CaroMath::checkWin(){
+    int play;
+    if (Data.size() % 2 == 1) play = 1;
+    if (Data.size() % 2 == 0) play = 2;
     if (checkCross())
     {
         cout << "Play " << play << " win!\n";
-        return play;
+        return true;
     }
     else if (checkLine())
     {
         cout << "Play " << play << " win!\n";
-        return play;
+        return true;
     }
     else if (CheckDiagonal1())
     {
         cout << "Play " << play << " win!\n";
-        return play;
+        return true;
     }
     else if (CheckDiagonal2())
     {
         cout << "Play " << play << " win!\n";
-        return play;
-    } else if (checkDraw()) {
-        return draw;
+        return true;
     }
-    return 0;
+    return false;
 }
+
 bool CaroMath::checkExist(int x, int y)
 {
     for(int i=0;i < Data.size();i++)
@@ -292,47 +282,5 @@ bool CaroMath::checkExist(int x, int y)
     }
     return false;
 }
-void CaroMath::writeDataMap()
-{
-    ofstream mydata;
-    mydata.open("data.map",ios::app);
-    for( int i=0;i<COLUM;i++){
-        for(int j=0;j<ROW;j++)
-        {
-            mydata<<i<<" "<<j<<" "<<gameTABLE[i][j]<<"\n";
-        }
-    }
-    mydata.close();
-}
-void CaroMath::readDataMap()
-{
-    ifstream filein;
-    filein.open("data.map",ios::in);
-    int check=0;
-    while (!filein.eof())
-    {
-        for( int i=0;i<COLUM;i++){
-            for(int j=0;j<ROW;j++)
-            {
-                if(check%2==0)
-                {
-                gameTABLE[i][j]='X';
 
-           }
-                else
-                {
-                   gameTABLE[i][j]='O';
 
-                }
-                check++;
-            }
-
-    }
-    filein.close();
-}
-}
-   void CaroMath::rePlay()
-
-{
-    readDataMap();
-}

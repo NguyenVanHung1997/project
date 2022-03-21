@@ -39,10 +39,6 @@ public:
     bool checkDraw();
     int checkWin();
     bool checkExist(int x, int y);
-    void writeDataMap();
-    void readDataMap();
-    void rePlay();
-
 };
 
 

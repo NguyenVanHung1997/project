@@ -4,10 +4,10 @@
 using namespace std;
 CaroMath CM;
 Carofile CF;
+
+void play();
 int main()
 {
-    void play();
-    void Replay();
     int opt=0;
     do {
 //        system("clear");
@@ -15,7 +15,6 @@ int main()
         cout << "Please chose number for each function\n";
         cout << "1. Play\n";
         cout << "2. List player\n";
-        cout<<"3.replay\n";
         cout << "0. Exit\n";
         cin >> opt;
         switch (opt) {
@@ -24,9 +23,6 @@ int main()
             break;
         case 2:
             CF.showListPlayer();
-        case 3:
-            Replay();
-            break;
         default:
             break;
         }
@@ -48,10 +44,4 @@ void play() {
     }while(result==0);
     CF.setWinLossDraw(result);
     CF.storePlayerRank();
-}
-void Replay()
-{
-    CM.writeDataMap();
-    CM.readDataMap();
-    CM.rePlay();
 }

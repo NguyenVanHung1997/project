@@ -10,8 +10,7 @@ CONFIG -= app_bundle
 SOURCES += \
         CaroMath.cpp \
         Carofile.cpp \
-        main.cpp \
-        player.cpp
+        main.cpp
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

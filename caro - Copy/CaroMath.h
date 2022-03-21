@@ -1,4 +1,3 @@
-#pragma once
 #include<iostream>
 #include<vector>
 #include<cstdlib>
@@ -36,13 +35,8 @@ public:
     bool checkCross();
     bool CheckDiagonal1();
     bool CheckDiagonal2();
-    bool checkDraw();
-    int checkWin();
+    bool checkWin();
     bool checkExist(int x, int y);
-    void writeDataMap();
-    void readDataMap();
-    void rePlay();
-
 };
 
 
