@@ -3,12 +3,15 @@
 #include "CaroMath.h"
 using namespace std;
 
+
+
+
 CaroMath::CaroMath()
 {
     player1 = "Play 1 ";
     player2 = "Play 2 ";
+    mIsContinue = false;
 }
-
 
 void CaroMath::print(){
     cout<<"Player 1 <X>"<<"-"<<"Player 2 <0>"<<endl;
@@ -127,6 +130,7 @@ void CaroMath::playerInput()
     else if((Data.size()-1)%2!=0) {
         Player1Move();
     }
+    writeDataMap();
     system("cls");
 }
 bool CaroMath::checkLine(){
@@ -255,8 +259,8 @@ bool CaroMath::checkDraw()
 int CaroMath::checkWin(){
     int play=1;
     int draw=3;
-    if (Data.size() % 2 == 1) player1 = 1;
-    if (Data.size() % 2 == 0) player2 = 2;
+    if (Data.size() % 2 == 1) play = 1;
+    if (Data.size() % 2 == 0) play = 2;
     if (checkCross())
     {
         cout << "Play " << play << " win!\n";
@@ -284,7 +288,7 @@ int CaroMath::checkWin(){
 
 bool CaroMath::checkExist(int x, int y)
 {
-    for(int i=0;i < Data.size();i++)
+    for(size_t i=0;i < Data.size();i++)
     {
         if(Data[i].x==x&& Data[i].y==y)
         {
@@ -293,6 +297,97 @@ bool CaroMath::checkExist(int x, int y)
         }
     }
     return false;
+}
+
+void CaroMath::writeDataMap(int win)
+{
+    ofstream writeData;
+    writeData.open("data.map",ios::out);
+    if (win==0){
+        writeData <<"continue\n";
+        writeData << player1 << "\n";
+        writeData << player2 << "\n";
+    } else {
+        writeData << "end\n";
+    }
+    for( int i=0;i<COLUM;i++){
+        for(int j=0;j<ROW;j++)
+        {
+            writeData<<i<<" "<<j<<" "<<gameTABLE[i][j]<<"\n";
+        }
+    }
+    writeData.close();
+}
+
+void CaroMath::readDataMap()
+{
+    ifstream readData;
+    readData.open("data.map",ios::in);
+
+    if (!readData.is_open()) {
+        return;
+    }
+
+    string buff, x, y, ox;
+    Block b;
+    getline(readData, buff);
+    if(buff=="end") {
+        setIsContinue(false);
+        return;
+    } else {
+        setIsContinue(true);
+    }
+
+    getline(readData, buff);
+    player1 = buff;
+    getline(readData, buff);
+    player2 = buff;
+    while (!readData.eof())
+
+    {
+        getline(readData, buff);
+        stringstream ss(buff);
+        getline(ss, x, ' ');
+        getline(ss, y, ' ');
+        getline(ss, ox, ' ');
+        int i,j;
+        stringstream geekX(x);
+        stringstream geekY(y);
+        geekX >> i;
+        geekY >> j;
+//        strcpy(oxChar, ox.c_str());
+        if (ox=="X") {
+            gameTABLE[i][j] = 'X';
+            b.x = i;
+            b.y = j;
+            Data.push_back(b);
+        } else if (ox=="O") {
+            gameTABLE[i][j] = 'O';
+            b.x = i;
+            b.y = j;
+            Data.push_back(b);
+        } else {
+            gameTABLE[i][j] = ' ';
+        }
+
+    }
+    readData.close();
+}
+
+bool CaroMath::isContinue() const
+{
+    return mIsContinue;
+}
+
+void CaroMath::setIsContinue(bool isContinue)
+{
+    mIsContinue = isContinue;
+}
+
+void CaroMath::resetData()
+{
+    Data.clear();
+    cout << "Data is cleared" << "\n";
 }
 
 

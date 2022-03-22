@@ -1,13 +1,16 @@
 #include <iostream>
 #include "CaroMath.h"
 #include "Carofile.h"
+#define LOG cout<<__FUNCTION__<<":"<<__LINE__<<"\n";
+#define LOG2(x) cout<<__FUNCTION__<<":"<<__LINE__<<":"<<x<<"\n";
 using namespace std;
 CaroMath CM;
 Carofile CF;
+
+void play();
+void rePlay();
 int main()
 {
-    void play();
-    void Replay();
     int opt=0;
     do {
 //        system("clear");
@@ -15,7 +18,7 @@ int main()
         cout << "Please chose number for each function\n";
         cout << "1. Play\n";
         cout << "2. List player\n";
-        cout << "3. Replay\n";
+        cout << "3. RePlay\n";
         cout << "0. Exit\n";
         cin >> opt;
         switch (opt) {
@@ -26,7 +29,7 @@ int main()
             CF.showListPlayer();
             break;
         case 3:
-            Replay();
+            rePlay();
             break;
         default:
             break;
@@ -35,7 +38,7 @@ int main()
     return 0;
 }
 void play() {
-    CF.readPlayerRank();
+    CM.resetData();
     CF.setNamePlayer();
     CM.print();
     CM.draw();
@@ -48,24 +51,27 @@ void play() {
         result = CM.checkWin();
     }while(result==0);
     CF.setWinLossDraw(result);
-    CF.writePlayerRank();
-    CM.reset();
+    CM.writeDataMap(result);
+    CF.writePlayerRankToFile();
 }
-void Replay()
+void rePlay()
 {
     CM.readDataMap();
-
-//    CM.print();
-//    CM.draw();
-    CM.display();
-    int result=0;
-    do{
-        CM.playerInput();
-        CM.checkWin();
+    CF.readLastPlayerFromFile();
+    if(CM.isContinue()) {
         CM.display();
-        result = CM.checkWin();
-    }while(result==0);
-    CF.setWinLossDraw(result);
-    CF.writePlayerRank();
-    CM.reset();
+        int result=0;
+        do{
+            CM.playerInput();
+            CM.checkWin();
+            CM.display();
+            result = CM.checkWin();
+        }while(result==0);
+        CF.setWinLossDraw(result);
+        CM.writeDataMap(result);
+        CF.writePlayerRankToFile();
+    } else {
+        cout << "No continue\nPlease choose play\n";
+    }
+
 }

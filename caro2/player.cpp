@@ -7,7 +7,14 @@
 
 using namespace std;
 
-
+Player::Player()
+{
+    name = "";
+    win = 0;
+    total = 0;
+    mark = 0;
+    type = LocalPlayer;
+}
 
 int Player::getLose() const
 {
@@ -29,16 +36,6 @@ void Player::setDraw(int newDraw)
     draw = newDraw;
 }
 
-Player::Player()
-{
-    name = "";
-    win = 0;
-    total = 0;
-    mark = 0;
-    type = LocalPlayer;
-    int socket = 0;
-}
-
 std::string Player::getName()
 {
     return this->name;
@@ -52,11 +49,6 @@ int Player::getWin()
 int Player::getTotal()
 {
     return this->total;
-}
-
-int Player::getMark()
-{
-    return this->mark;
 }
 
 PlayerType Player::getType()
@@ -84,10 +76,6 @@ void Player::setTotal(int total)
     this->total = total;
 }
 
-void Player::setMark(int mark)
-{
-    this->mark = mark;
-}
 void Player::setType(PlayerType type)
 {
     this->type = type;

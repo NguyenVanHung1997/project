@@ -29,13 +29,11 @@ public:
     std::string getName();
     int getWin();
     int getTotal();
-    int getMark();
     PlayerType getType();
     int getSock();
     void setName(std::string name);
     void setWin(int win);
     void setTotal(int total);
-    void setMark(int mark);
     void setType(PlayerType type);
 //    void setSock(int sock);
     //    void takeAMark(BoardGame &board, UI &ui, Connection *conn);
