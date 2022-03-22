@@ -7,8 +7,8 @@
 #include <unordered_map>
 #include "CaroMath.h"
 #include "player.h"
-#define LOG cout<<__FUNCTION__<<":"<<__LINE__<<"\n";
-#define LOG2(x) cout<<__FUNCTION__<<":"<<__LINE__<<":"<<x<<"\n";
+//#define LOG cout<<__FUNCTION__<<":"<<__LINE__<<"\n";
+//#define LOG2(x) cout<<__FUNCTION__<<":"<<__LINE__<<":"<<x<<"\n";
 #define path "data.ini"
 using namespace std;
 

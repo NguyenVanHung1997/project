@@ -11,9 +11,8 @@ Player::Player()
 {
     name = "";
     win = 0;
-    total = 0;
-    mark = 0;
-    type = LocalPlayer;
+    lose=0;
+    draw=0;
 }
 
 int Player::getLose() const
@@ -46,21 +45,6 @@ int Player::getWin()
     return this->win;
 }
 
-int Player::getTotal()
-{
-    return this->total;
-}
-
-PlayerType Player::getType()
-{
-    return this->type;
-}
-
-int Player::getSock()
-{
-    return this->socket;
-}
-
 void Player::setName(std::string name)
 {
     this->name = name;
@@ -71,15 +55,6 @@ void Player::setWin(int win)
     this->win = win;
 }
 
-void Player::setTotal(int total)
-{
-    this->total = total;
-}
-
-void Player::setType(PlayerType type)
-{
-    this->type = type;
-}
 
 //void Player::setSock(int sock)
 //{
