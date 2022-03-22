@@ -1,10 +1,5 @@
-#ifndef _PLAYER_HPP_
-#define _PLAYER_HPP_
 
 #include <string>
-//#include <ui.hpp>
-//#include <connection.hpp>
-
 
 class Player
 {
@@ -26,4 +21,4 @@ public:
     int getDraw() const;
     void setDraw(int newDraw);
 };
-#endif
+

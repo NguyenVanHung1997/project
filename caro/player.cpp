@@ -27,6 +27,10 @@ void Player::setDraw(int newDraw)
 
 Player::Player()
 {
+    lose=0;
+    draw=0;
+    win=0;
+
 }
 
 std::string Player::getName()

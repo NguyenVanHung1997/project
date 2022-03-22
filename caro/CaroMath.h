@@ -42,7 +42,7 @@ public:
     void writeDataMap();
     void readDataMap();
     void rePlay();
-
+    void reset();
 };
 
 

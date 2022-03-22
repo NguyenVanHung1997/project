@@ -15,7 +15,7 @@ int main()
         cout << "Please chose number for each function\n";
         cout << "1. Play\n";
         cout << "2. List player\n";
-        cout<<"3.replay\n";
+        cout << "3. Replay\n";
         cout << "0. Exit\n";
         cin >> opt;
         switch (opt) {
@@ -24,6 +24,7 @@ int main()
             break;
         case 2:
             CF.showListPlayer();
+            break;
         case 3:
             Replay();
             break;
@@ -34,7 +35,7 @@ int main()
     return 0;
 }
 void play() {
-    CF.loadPlayerRank();
+    CF.readPlayerRank();
     CF.setNamePlayer();
     CM.print();
     CM.draw();
@@ -47,11 +48,24 @@ void play() {
         result = CM.checkWin();
     }while(result==0);
     CF.setWinLossDraw(result);
-    CF.storePlayerRank();
+    CF.writePlayerRank();
+    CM.reset();
 }
 void Replay()
 {
-    CM.writeDataMap();
     CM.readDataMap();
-    CM.rePlay();
+
+//    CM.print();
+//    CM.draw();
+    CM.display();
+    int result=0;
+    do{
+        CM.playerInput();
+        CM.checkWin();
+        CM.display();
+        result = CM.checkWin();
+    }while(result==0);
+    CF.setWinLossDraw(result);
+    CF.writePlayerRank();
+    CM.reset();
 }

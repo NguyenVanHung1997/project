@@ -17,10 +17,8 @@ class Carofile:public CaroMath
  public:
     Carofile();
     ~Carofile();
-    void createFile(string nameFile);
-    void writeMatchInfor(string name, int win, int lose, int draw);
-    void loadPlayerRank();
-    void storePlayerRank();
+    void readPlayerRank();
+    void writePlayerRank();
     void setNamePlayer();
     void showListPlayer();
     void setWinLossDraw(int playerWin);

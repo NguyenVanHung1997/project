@@ -7,29 +7,11 @@ using namespace std;
 
 Carofile::Carofile()
 {
-
 }
-
 Carofile::~Carofile()
 {
-
 }
-void Carofile::createFile(string nameFile)
-{
-
-}
-void Carofile::writeMatchInfor(string name, int win, int lose, int draw)
-{
-    ofstream myfile;
-    myfile.open("D:\\04_Caro_test\\data.ini",ios::app);
-    myfile<<"Name: "<<name<<endl;
-    myfile<<"Win: "<<win<<endl;
-    myfile<<"Lose: "<<lose<<endl;
-    myfile<<"Draw: "<<draw<<endl;
-    myfile<<"..................."<<endl;
-    myfile.close();
-}
-void Carofile::loadPlayerRank()
+void Carofile::readPlayerRank()
 {
     string buffer;
     ifListPlayer.open(".ini");
@@ -46,7 +28,7 @@ void Carofile::loadPlayerRank()
         getline(strstream,draw,' ');
         if(name.length()<=0||win.length()<=0||lose.length()<=0||draw.length()<=0)
             continue;
-        shared_ptr<Player>newPlayer=make_shared<Player>();
+        shared_ptr<Player> newPlayer = make_shared<Player>();
         newPlayer->setName(name);
         newPlayer->setWin(stoi(win));
         newPlayer->setWin(stoi(lose));
@@ -54,16 +36,15 @@ void Carofile::loadPlayerRank()
         vPlayers.emplace_back(newPlayer);
     }
     ifListPlayer.close();
-    for(int i=0;i<vPlayers.size();i++)
+    for(size_t i=0;i<vPlayers.size();i++)
     {
         mPlayers[vPlayers[i]->getName()]=vPlayers[i];
     }
 
 }
-void Carofile::storePlayerRank()
+void Carofile::writePlayerRank()
 {
     ofListPlayer.open(".ini");
-
         for (size_t i = 0; i < vPlayers.size(); i++)
         {
             ofListPlayer << vPlayers[i]->getName() << " ";
@@ -71,10 +52,8 @@ void Carofile::storePlayerRank()
             ofListPlayer << vPlayers[i]->getLose() << " ";
             ofListPlayer << vPlayers[i]->getDraw() << endl;
         }
-
         ofListPlayer.close();
 }
-
 void Carofile::setNamePlayer()
 {
     string name1, name2;
@@ -108,7 +87,8 @@ void Carofile::setNamePlayer()
 }
 void Carofile::showListPlayer()
 {
-    cout<<"Name\t\t"<<"win\t\t"<<"lose\\t\t"<<"draw\n";
+    cout<<"Name\t\t"<<"win\t\t"<<"lose\t\t"<<"draw\n";
+//    readPlayerRank();
     for(auto &i:vPlayers){
         cout<<i->getName()<<"\t\t"<<i->getWin()<<"\t\t"<<i->getLose()<<"\t\t"<<i->getDraw()<<'\n';
     }

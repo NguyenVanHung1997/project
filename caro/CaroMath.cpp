@@ -2,6 +2,7 @@
 #include <iostream>
 #include "CaroMath.h"
 #include <sstream>
+#include <cstring>
 using namespace std;
 
 CaroMath::CaroMath()
@@ -61,7 +62,7 @@ void CaroMath::display()
         cout << endl;
         cout << "  ";
         for (int iY = 0; iY < 4*COLUM+1; iY++) {
-            /*cout << "----";*/
+
             printf("%c", 196);
         }
         cout << endl;
@@ -126,8 +127,7 @@ void CaroMath::playerInput()
     else if((Data.size()-1)%2!=0) {
         Player1Move();
     }
-    system("cls");
-
+    writeDataMap();
 }
 bool CaroMath::checkLine(){
     int row=Data[Data.size()-1].x;
@@ -294,45 +294,60 @@ bool CaroMath::checkExist(int x, int y)
 }
 void CaroMath::writeDataMap()
 {
-    ofstream mydata;
-    mydata.open("data.map",ios::app);
+    ofstream writeData;
+    writeData.open("data.map",ios::out);
     for( int i=0;i<COLUM;i++){
         for(int j=0;j<ROW;j++)
         {
-            mydata<<i<<" "<<j<<" "<<gameTABLE[i][j]<<"\n";
+            writeData<<i<<" "<<j<<" "<<gameTABLE[i][j]<<"\n";
         }
     }
-    mydata.close();
+
+    writeData.close();
 }
 void CaroMath::readDataMap()
 {
-    ifstream filein;
-    filein.open("data.map",ios::in);
+    ifstream readData;
+    readData.open("data.map",ios::in);
     int check=0;
-    while (!filein.eof())
+    string buff, x, y, ox;
+    Block b;
+    while (!readData.eof())
     {
-        for( int i=0;i<COLUM;i++){
-            for(int j=0;j<ROW;j++)
-            {
-                if(check%2==0)
-                {
-                gameTABLE[i][j]='X';
-
-           }
-                else
-                {
-                   gameTABLE[i][j]='O';
-
-                }
-                check++;
-            }
+        getline(readData, buff);
+        stringstream ss(buff);
+        getline(ss, x, ' ');
+        getline(ss, y, ' ');
+        getline(ss, ox, ' ');
+        int i,j;
+        stringstream geekX(x);
+        stringstream geekY(y);
+        geekX >> i;
+        geekY >> j;
+//        strcpy(oxChar, ox.c_str());
+        if (ox=="X") {
+            gameTABLE[i][j] = 'X';
+            b.x = i;
+            b.y = j;
+            Data.push_back(b);
+        } else if (ox=="O") {
+            gameTABLE[i][j] = 'O';
+            b.x = i;
+            b.y = j;
+            Data.push_back(b);
+        }
 
     }
-    filein.close();
-}
-}
-   void CaroMath::rePlay()
+    readData.close();
 
+}
+
+void CaroMath::rePlay()
 {
     readDataMap();
+}
+
+void CaroMath::reset()
+{
+    Data.clear();
 }
